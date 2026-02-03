@@ -1,0 +1,24 @@
+{
+  "mappings": [
+    {
+      "priority": 1,
+      "request": {
+        "method": "POST",
+        "urlPathPattern": "/model/anthropic\\.claude-.*/converse",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.messages[*].content[*].text",
+            "contains": "What is UCD?"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/x-amz-json-1.1"
+        },
+        "bodyFileName": "ucd_response.json"
+      }
+    }
+  ]
+}
