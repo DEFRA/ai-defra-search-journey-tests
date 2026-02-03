@@ -1,12 +1,16 @@
 name: Run Journey Tests on GitHub
 
 inputs:
-  example-node-backend:
-    required: false
-    type: string
-  example-node-frontend:
-    required: false
-    type: string
+  ai-defra-search-agent:
+    description: commit hash of ai-defra-search-agent
+  ai-defra-search-frontend:
+    description: commit hash of ai-defra-search-frontend
+  branch:
+    description: branch in this repo
+    default: main
+  journey-test-pr:
+    description: is this action being called from a pr in this repo?
+    default: 'false'
 
 runs:
   using: "composite"
@@ -28,8 +32,8 @@ runs:
     - name: Start docker compose
       shell: bash
       run: |
-          CDP_EXAMPLE_NODE_FRONTEND=${{inputs.example-node-frontend}} \
-          CDP_EXAMPLE_NODE_BACKEND=${{inputs.example-node-backend}} \
+          AI_DEFRA_SEARCH_BACKEND=${{inputs.ai-defra-search-agent}} \
+          AI_DEFRA_SEARCH_FRONTEND=${{inputs.ai-defra-search-frontend}} \
           docker compose up --wait-timeout 300 -d --quiet-pull
     - name: Run the tests
       shell: bash

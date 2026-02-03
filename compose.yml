@@ -87,7 +87,7 @@ services:
 #
 ################################################################################
   ai-defra-search-frontend:
-    image: defradigital/ai-defra-search-frontend:${CDP_EXAMPLE_NODE_FRONTEND:-latest}
+    image: defradigital/ai-defra-search-frontend:${AI_DEFRA_SEARCH_FRONTEND:-latest}
     env_file:
       - ./docker/config/defaults.env
     environment:
@@ -116,7 +116,7 @@ services:
 
 ################################################################################
   ai-defra-search-agent:
-   image: defradigital/ai-defra-search-agent:${CDP_EXAMPLE_NODE_BACKEND:-latest}
+   image: defradigital/ai-defra-search-agent:${AI_DEFRA_SEARCH_BACKEND:-latest}
    env_file:
      - ./docker/config/defaults.env
    environment:
