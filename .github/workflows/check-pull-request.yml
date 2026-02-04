@@ -32,4 +32,8 @@ jobs:
     name: Run Journey Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: DEFRA/cdp-node-journey-test-suite-template/run-journey-tests@main
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Journey Tests
+        uses: ./run-journey-tests

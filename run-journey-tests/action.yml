@@ -16,10 +16,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
-      with:
-        repository: DEFRA/cdp-node-journey-test-suite-template
-
     - name: Docker Login
       uses: DEFRA/cdp-build-action/docker-login@main
 
