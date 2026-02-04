@@ -18,7 +18,7 @@ class AiAssisstantPage {
         return text.includes(question)
       },
       {
-        timeout: 15000,
+        timeout: 1000,
         timeoutMsg: `Expected question "${question}" to appear in conversation`
       }
     )
@@ -31,7 +31,7 @@ class AiAssisstantPage {
           return text.includes(expectedResponse)
         },
         {
-          timeout: 15000,
+          timeout: 1000,
           timeoutMsg: `Expected response "${expectedResponse}" to appear in conversation`
         }
       )
