@@ -31,7 +31,7 @@ runs:
       run: |
           AI_DEFRA_SEARCH_BACKEND=${{inputs.ai-defra-search-agent}} \
           AI_DEFRA_SEARCH_FRONTEND=${{inputs.ai-defra-search-frontend}} \
-          docker compose up --wait-timeout 300 -d --quiet-pull
+          docker compose up --wait --wait-timeout 300 -d --quiet-pull
     - name: Run the tests
       shell: bash
       run: |
