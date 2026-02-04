@@ -1,4 +1,5 @@
 name: Run Journey Tests on GitHub
+description: Run AI Assistant journey tests
 
 inputs:
   ai-defra-search-agent:
