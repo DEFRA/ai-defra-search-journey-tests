@@ -36,6 +36,27 @@ Install application dependencies:
 npm install
 ```
 
+#### Configuration
+
+The Docker Compose setup uses a three-tier configuration approach for environment variables:
+
+1. **Shared defaults** (`docker/config/defaults.env`): Common variables used across all services (AWS region, MongoDB, Redis, Localstack endpoints)
+2. **Service-specific examples** (`.env.ai-defra-search-frontend.example`, `.env.ai-defra-search-frontend.example`): Template files with default values for each service
+3. **Local overrides** (`.env.ai-defra-search-agent`, `.env.ai-defra-search-agent`): Optional, git-ignored files for customising your local environment
+
+To customise environment variables for local development:
+
+```bash
+# Copy the example files
+cp ./docker/config/.env.ai-defra-search-frontend.example ./docker/config/.env.ai-defra-search-frontend
+cp ./docker/config/.env.ai-defra-search-agent.example ./docker/config/.env.ai-defra-search-agent
+
+# Edit the files with your custom values
+# These files are git-ignored and won't be committed
+```
+
+The Docker Compose file will automatically load your local `.env.ai-defra-search-frontend` and `.env.ai-defra-search-agent` files if they exist, allowing you to override any default values without modifying the `compose.yml` file.
+
 ### Running local tests
 
 Start application you are testing on the url specified in `baseUrl` [wdio.local.conf.js](wdio.local.conf.js)
