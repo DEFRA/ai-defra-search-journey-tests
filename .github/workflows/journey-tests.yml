@@ -8,19 +8,7 @@ permissions:
 
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to test'
-        required: false
-        default: 'main'
-        type: string
   workflow_call:
-    inputs:
-      branch:
-        description: 'Branch to test'
-        required: false
-        default: 'main'
-        type: string
 jobs:
   build:
     name: Run Journey Tests
@@ -28,10 +16,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.branch || 'main' }}
 
       - name: Run Journey Tests
         uses: ./run-journey-tests
-        with:
-          branch: ${{ inputs.branch || 'main' }}
