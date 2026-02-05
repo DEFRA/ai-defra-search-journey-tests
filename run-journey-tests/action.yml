@@ -16,38 +16,52 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout repository if not called by Journey Test PR
+      if: inputs.journey-test-pr == 'false'
+      uses: actions/checkout@v4
+      with:
+        repository: DEFRA/ai-defra-search-journey-tests
+        ref: ${{inputs.branch}}
+
     - name: Docker Login
       uses: DEFRA/cdp-build-action/docker-login@main
 
     - uses: actions/setup-node@v4
       with:
         node-version: 20
+        cache: npm
+
     - name: Setup the tests
       run: npm i
       shell: bash
+
     - name: Start docker compose
       shell: bash
       run: |
           AI_DEFRA_SEARCH_BACKEND=${{inputs.ai-defra-search-agent}} \
           AI_DEFRA_SEARCH_FRONTEND=${{inputs.ai-defra-search-frontend}} \
           docker compose up --wait --wait-timeout 300 -d --quiet-pull
+
     - name: Run the tests
       shell: bash
       run: |
         npm run test:github
         npm run report
+
     - name: debug
       if: always()
       run: |
         docker compose logs > logs.txt
         docker ps
       shell: bash
+
     - name: Upload allure report
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: allure-report
         path: ./allure-report
+
     - name: Upload docker compose logs
       if: always()
       uses: actions/upload-artifact@v4

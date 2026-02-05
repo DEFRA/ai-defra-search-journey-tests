@@ -31,9 +31,14 @@ jobs:
   tests:
     name: Run Journey Tests
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Run Journey Tests
         uses: ./run-journey-tests
+        with:
+          journey-test-pr: true
