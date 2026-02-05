@@ -1,11 +1,9 @@
 name: Run Journey Tests on GitHub
-
 permissions:
   id-token: write
   contents: read
   checks: write
   pull-requests: write
-
 on:
   workflow_dispatch:
   workflow_call:
@@ -16,6 +14,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Run Journey Tests
         uses: ./run-journey-tests
+        with:
+          branch: ${{ github.ref_name }}
