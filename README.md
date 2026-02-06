@@ -62,12 +62,16 @@ The Docker Compose file will automatically load your local `.env.ai-defra-search
 Start application you are testing on the url specified in `baseUrl` [wdio.local.conf.js](wdio.local.conf.js)
 
 ```bash
+docker compose build
+docker compose up --wait -d
 npm run test:local
 ```
 
 ### Debugging local tests
 
 ```bash
+docker compose build
+docker compose up --wait -d
 npm run test:local:debug
 ```
 
