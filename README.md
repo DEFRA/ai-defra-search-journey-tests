@@ -5,6 +5,7 @@ The template to create a service that runs WDIO tests against an environment.
 - [Local](#local)
   - [Requirements](#requirements)
     - [Node.js](#nodejs)
+    - [Java](#java)
   - [Setup](#setup)
   - [Running local tests](#running-local-tests)
   - [Debugging local tests](#debugging-local-tests)
@@ -27,6 +28,34 @@ To use the correct version of Node.js for this application, via nvm:
 ```bash
 nvm use
 ```
+
+#### Java
+
+Java Runtime Environment (JRE) 11 or higher is required for generating Allure test reports.
+
+**macOS (using Homebrew):**
+
+```bash
+brew install openjdk@17
+```
+
+**Ubuntu/Debian:**
+
+```bash
+sudo apt-get update
+sudo apt-get install openjdk-17-jre-headless
+```
+
+**Windows:**
+Download and install from [Oracle Java](https://www.oracle.com/java/technologies/downloads/) or [Adoptium](https://adoptium.net/)
+
+**Verify installation:**
+
+```bash
+java -version
+```
+
+**Note:** If you don't have Java installed, the tests will run successfully but report generation will fail at the end. The Docker environment includes Java automatically.
 
 ### Setup
 
