@@ -3,7 +3,7 @@ name: Check Pull Request
 on:
   pull_request:
     branches:
-      - main
+      - '*'
     types:
       - opened
       - edited
@@ -12,6 +12,11 @@ on:
       - ready_for_review
 
 jobs:
+  security-scan:
+    name: Security Scanning
+    uses: ./.github/workflows/scan.yml
+    secrets: inherit
+
   cdp-workflows:
     name: Run Pull Request Checks
     runs-on: ubuntu-latest
@@ -28,9 +33,17 @@ jobs:
       - run: npm run format:check
       - run: npm run lint
 
-# Uncomment this to run the tests in your test suite
-#  tests:
-#    name: Run Journey Tests
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: DEFRA/cdp-node-journey-test-suite-template/run-journey-tests@main
+  tests:
+    name: Run Journey Tests
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Journey Tests
+        uses: ./run-journey-tests
+        with:
+          journey-test-pr: true

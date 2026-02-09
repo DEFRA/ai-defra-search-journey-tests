@@ -5,6 +5,7 @@ The template to create a service that runs WDIO tests against an environment.
 - [Local](#local)
   - [Requirements](#requirements)
     - [Node.js](#nodejs)
+    - [Java](#java)
   - [Setup](#setup)
   - [Running local tests](#running-local-tests)
   - [Debugging local tests](#debugging-local-tests)
@@ -28,6 +29,34 @@ To use the correct version of Node.js for this application, via nvm:
 nvm use
 ```
 
+#### Java
+
+Java Runtime Environment (JRE) 11 or higher is required for generating Allure test reports.
+
+**macOS (using Homebrew):**
+
+```bash
+brew install openjdk@17
+```
+
+**Ubuntu/Debian:**
+
+```bash
+sudo apt-get update
+sudo apt-get install openjdk-17-jre-headless
+```
+
+**Windows:**
+Download and install from [Oracle Java](https://www.oracle.com/java/technologies/downloads/) or [Adoptium](https://adoptium.net/)
+
+**Verify installation:**
+
+```bash
+java -version
+```
+
+**Note:** If you don't have Java installed, the tests will run successfully but report generation will fail at the end. The Docker environment includes Java automatically.
+
 ### Setup
 
 Install application dependencies:
@@ -36,17 +65,42 @@ Install application dependencies:
 npm install
 ```
 
+#### Configuration
+
+The Docker Compose setup uses a three-tier configuration approach for environment variables:
+
+1. **Shared defaults** (`docker/config/defaults.env`): Common variables used across all services (AWS region, MongoDB, Redis, Localstack endpoints)
+2. **Service-specific examples** (`.env.ai-defra-search-frontend.example`, `.env.ai-defra-search-frontend.example`): Template files with default values for each service
+3. **Local overrides** (`.env.ai-defra-search-agent`, `.env.ai-defra-search-agent`): Optional, git-ignored files for customising your local environment
+
+To customise environment variables for local development:
+
+```bash
+# Copy the example files
+cp ./docker/config/.env.ai-defra-search-frontend.example ./docker/config/.env.ai-defra-search-frontend
+cp ./docker/config/.env.ai-defra-search-agent.example ./docker/config/.env.ai-defra-search-agent
+
+# Edit the files with your custom values
+# These files are git-ignored and won't be committed
+```
+
+The Docker Compose file will automatically load your local `.env.ai-defra-search-frontend` and `.env.ai-defra-search-agent` files if they exist, allowing you to override any default values without modifying the `compose.yml` file.
+
 ### Running local tests
 
 Start application you are testing on the url specified in `baseUrl` [wdio.local.conf.js](wdio.local.conf.js)
 
 ```bash
+docker compose build
+docker compose up --wait -d
 npm run test:local
 ```
 
 ### Debugging local tests
 
 ```bash
+docker compose build
+docker compose up --wait -d
 npm run test:local:debug
 ```
 
@@ -91,6 +145,28 @@ If you want to use the repository exclusively for running docker composed based 
 Two wdio configuration files are provided to help run the tests using BrowserStack in both a GitHub workflow (`wdio.github.browserstack.conf.js`) and from the CDP Portal (`wdio.browserstack.conf.js`).
 They can be run from npm using the `npm run test:browserstack` (for running via portal) and `npm run test:github:browserstack` (from GitHib runner).
 See the CDP Documentation for more details.
+
+## Security Scanning
+
+### Trivy Vulnerability Scan
+
+[Trivy](https://github.com/aquasecurity/trivy) is used to scan for security vulnerabilities in dependencies and the filesystem. The scan runs automatically via GitHub Actions and checks for CRITICAL, HIGH, MEDIUM, and LOW severity issues.
+
+#### Running Trivy Locally
+
+To run the Trivy scan locally, first install Trivy by following the [installation instructions](https://aquasecurity.github.io/trivy/latest/getting-started/installation/).
+
+Once installed, run the scan from the project root:
+
+```bash
+trivy repository --include-dev-deps --format table --exit-code 1 --severity CRITICAL,HIGH,MEDIUM,LOW --ignorefile .trivyignore .
+```
+
+The scan will:
+
+- Check the entire repository for vulnerabilities
+- Respect ignore rules defined in `.trivyignore`
+- Exit with code 1 if any vulnerabilities are found
 
 ## Licence
 
