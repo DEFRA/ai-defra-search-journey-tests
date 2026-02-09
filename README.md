@@ -146,6 +146,28 @@ Two wdio configuration files are provided to help run the tests using BrowserSta
 They can be run from npm using the `npm run test:browserstack` (for running via portal) and `npm run test:github:browserstack` (from GitHib runner).
 See the CDP Documentation for more details.
 
+## Security Scanning
+
+### Trivy Vulnerability Scan
+
+[Trivy](https://github.com/aquasecurity/trivy) is used to scan for security vulnerabilities in dependencies and the filesystem. The scan runs automatically via GitHub Actions and checks for CRITICAL, HIGH, MEDIUM, and LOW severity issues.
+
+#### Running Trivy Locally
+
+To run the Trivy scan locally, first install Trivy by following the [installation instructions](https://aquasecurity.github.io/trivy/latest/getting-started/installation/).
+
+Once installed, run the scan from the project root:
+
+```bash
+trivy repository --include-dev-deps --format table --exit-code 1 --severity CRITICAL,HIGH,MEDIUM,LOW --ignorefile .trivyignore .
+```
+
+The scan will:
+
+- Check the entire repository for vulnerabilities
+- Respect ignore rules defined in `.trivyignore`
+- Exit with code 1 if any vulnerabilities are found
+
 ## Licence
 
 THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE found at:

@@ -15,6 +15,11 @@ env:
   AWS_ACCOUNT_ID: "094954420758"
 
 jobs:
+  security-scan:
+    name: Security Scanning
+    uses: ./.github/workflows/scan.yml
+    secrets: inherit
+
   build:
     if: github.run_number != 1
     name: Build, version and publish
