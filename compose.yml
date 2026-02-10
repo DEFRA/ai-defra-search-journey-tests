@@ -117,7 +117,7 @@ services:
 
 ################################################################################
   ai-defra-search-agent:
-   image: defradigital/ai-defra-search-agent:${AI_DEFRA_SEARCH_BACKEND:-latest}
+   image: ai-defra-search-agent:AICE-276
    env_file:
      - ./docker/config/defaults.env
      - path: ./docker/config/.env.ai-defra-search-agent
@@ -142,6 +142,7 @@ services:
      - PORT=${PORT:-8086}
      - AWS_ENDPOINT_URL_BEDROCK_RUNTIME=${AWS_ENDPOINT_URL_BEDROCK_RUNTIME:-http://bedrock-mock:8080}
      - AWS_BEARER_TOKEN_BEDROCK=${AWS_BEARER_TOKEN_BEDROCK:-}
+    #  - SQS_CHAT_QUEUE_URL=${SQS_CHAT_QUEUE_URL:-http://sqs.eu-west-2.localstack:4566/000000000000/chat-job-queue}
    ports:
     - 8086:8086
    depends_on:
