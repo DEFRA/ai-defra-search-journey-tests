@@ -117,12 +117,16 @@ services:
 
 ################################################################################
   ai-defra-search-agent:
-   image: ai-defra-search-agent:AICE-276
+   image: defradigital/ai-defra-search-agent:${AI_DEFRA_SEARCH_BACKEND:-latest}
    env_file:
      - ./docker/config/defaults.env
      - path: ./docker/config/.env.ai-defra-search-agent
        required: false
    environment:
+     - AWS_REGION=${AWS_REGION:-eu-west-2}
+     - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-west-2}
+     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-test}
+     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-test}
      - AWS_EMF_ENVIRONMENT=${AWS_EMF_ENVIRONMENT:-local}
      - AWS_EMF_AGENT_ENDPOINT=${AWS_EMF_AGENT_ENDPOINT:-tcp://127.0.01:25888}
      - AWS_EMF_LOG_GROUP_NAME=${AWS_EMF_LOG_GROUP_NAME:-log-group-name}
@@ -142,7 +146,7 @@ services:
      - PORT=${PORT:-8086}
      - AWS_ENDPOINT_URL_BEDROCK_RUNTIME=${AWS_ENDPOINT_URL_BEDROCK_RUNTIME:-http://bedrock-mock:8080}
      - AWS_BEARER_TOKEN_BEDROCK=${AWS_BEARER_TOKEN_BEDROCK:-}
-    #  - SQS_CHAT_QUEUE_URL=${SQS_CHAT_QUEUE_URL:-http://sqs.eu-west-2.localstack:4566/000000000000/chat-job-queue}
+     - AWS_SQS_ENDPOINT_URL=${AWS_SQS_ENDPOINT_URL:-http://localstack:4566}
    ports:
     - 8086:8086
    depends_on:

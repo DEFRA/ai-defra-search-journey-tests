@@ -10,7 +10,6 @@ class AiAssisstantPage {
     const submitButton = await $('button[type="submit"]')
     await submitButton.click()
 
-    // Wait for the question to appear in the conversation
     const conversationContainer = await $('.app-conversation-container')
     await browser.waitUntil(
       async () => {
@@ -18,21 +17,28 @@ class AiAssisstantPage {
         return text.includes(question)
       },
       {
-        timeout: 1000,
+        timeout: 5000,
         timeoutMsg: `Expected question "${question}" to appear in conversation`
       }
     )
 
-    // If an expected response is provided, wait for it to appear
     if (expectedResponse) {
       await browser.waitUntil(
         async () => {
-          const text = await conversationContainer.getText()
-          return text.includes(expectedResponse)
+          const container = await $('.app-conversation-container')
+          const text = await container.getText()
+
+          if (text.includes(expectedResponse)) {
+            return true
+          }
+
+          await browser.refresh()
+          return false
         },
         {
-          timeout: 1000,
-          timeoutMsg: `Expected response "${expectedResponse}" to appear in conversation`
+          timeout: 30000,
+          interval: 2000,
+          timeoutMsg: `Expected response "${expectedResponse}" to appear after clicking Refresh button`
         }
       )
     }
