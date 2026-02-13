@@ -11,5 +11,5 @@ coverage
 allure-report/
 allure-results/
 FAILED
-./docker/config/.env.ai-defra-search-frontend
-./docker/config/.env.ai-defra-search-agent
+.env.ai-defra-search-frontend
+.env.ai-defra-search-agent
