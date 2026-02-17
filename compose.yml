@@ -141,7 +141,8 @@ services:
      - KNOWLEDGE_GROUP_ID=${KNOWLEDGE_GROUP_ID:-"kg_34vf0wr3e06l"}
      - KNOWLEDGE_SIMILARITY_THRESHOLD=${KNOWLEDGE_SIMILARITY_THRESHOLD:-0.5}
      - LOCALSTACK_URL=${LOCALSTACK_URL:-http://localstack:4566}
-     - CHAT_QUEUE_URL=${CHAT_QUEUE_URL:-http://sqs.eu-west-2.localstack:4566/000000000000/chat-job-queue}
+     - CHAT_QUEUE_URL=${CHAT_QUEUE_URL:-http://sqs.eu-west-2.localstack:4566/000000000000/ai-defra-search-agent-invoke}
+     - SQS_CHAT_QUEUE_URL=${SQS_CHAT_QUEUE_URL:-http://sqs.eu-west-2.localstack:4566/000000000000/ai-defra-search-agent-invoke}
      - HOST=${HOST:-0.0.0.0}
      - PORT=${PORT:-8086}
      - AWS_ENDPOINT_URL_BEDROCK_RUNTIME=${AWS_ENDPOINT_URL_BEDROCK_RUNTIME:-http://bedrock-mock:8080}
@@ -153,6 +154,8 @@ services:
      mongodb:
        condition: service_healthy
      bedrock-mock:
+       condition: service_healthy
+     localstack:
        condition: service_healthy
    healthcheck:
      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8086/health')"]
