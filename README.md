@@ -88,10 +88,17 @@ The Docker Compose file will automatically load your local `.env.ai-defra-search
 
 ### Running local tests
 
-Start application you are testing on the url specified in `baseUrl` [wdio.local.conf.js](wdio.local.conf.js)
+There are two options for running the tests locally:
+
+1. Start the stack and run the test in one go by executing the run-tests-local script:
 
 ```bash
-docker compose build
+./run-tests-local.sh
+```
+
+2. Run the tests manually by first startting the stack, then running the test command:
+
+```bash
 docker compose up --wait -d
 npm run test:local
 ```
@@ -99,7 +106,6 @@ npm run test:local
 ### Debugging local tests
 
 ```bash
-docker compose build
 docker compose up --wait -d
 npm run test:local:debug
 ```
