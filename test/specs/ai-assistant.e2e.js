@@ -6,7 +6,7 @@ describe('AI Assistant', () => {
   beforeEach(async () => {
     await browser.call(async () => {
       const response = await fetch(
-        'http://localhost:8089/__admin/scenarios/reset',
+        `${process.env.WIREMOCK_URL}/__admin/scenarios/reset`,
         {
           method: 'POST'
         }
@@ -17,6 +17,14 @@ describe('AI Assistant', () => {
         )
       }
     })
+  })
+
+  it('Should navigate from the homepage to the chat', async () => {
+    await AiAssisstantPage.openHome()
+    const startChatLink = await $('a[href="/start"]')
+    await startChatLink.click()
+    const conversationContainer = await $('.app-conversation-container')
+    await expect(conversationContainer).toBeExisting()
   })
 
   it('Should be on the "AI Assistant" page', async () => {

@@ -44,6 +44,8 @@ runs:
 
     - name: Run the tests
       shell: bash
+      env:
+        WIREMOCK_URL: http://localhost:8089
       run: |
         npm run test:github
         npm run report

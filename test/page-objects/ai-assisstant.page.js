@@ -1,4 +1,8 @@
 class AiAssisstantPage {
+  openHome(lang = '') {
+    return browser.url(lang + '/')
+  }
+
   openStart(lang = '') {
     return browser.url(lang + '/start')
   }
