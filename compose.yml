@@ -104,6 +104,9 @@ services:
       - REDIS_HOST=${REDIS_HOST:-redis}
       - REDIS_PORT=${REDIS_PORT:-6379}
       - USE_SINGLE_INSTANCE_CACHE=${USE_SINGLE_INSTANCE_CACHE:-true}
+      - CDP_UPLOADER_URL=${CDP_UPLOADER_URL:-http://cdp-uploader:7337}
+      - CDP_UPLOAD_CALLBACK_URL=${CDP_UPLOAD_CALLBACK_URL:-http://ai-defra-search-frontend:3000/upload/callback}
+      - UPLOAD_BUCKET_NAME=${UPLOAD_BUCKET_NAME:-my-bucket}
     depends_on:
       ai-defra-search-agent:
         condition: service_started
