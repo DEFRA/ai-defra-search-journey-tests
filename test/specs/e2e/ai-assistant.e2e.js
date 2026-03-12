@@ -1,6 +1,6 @@
 import { browser, expect } from '@wdio/globals'
 
-import AiAssisstantPage from 'page-objects/ai-assisstant.page.js'
+import AiAssisstantPage from 'page-objects/ai-assistant.page.js'
 
 describe('AI Assistant', () => {
   beforeEach(async () => {

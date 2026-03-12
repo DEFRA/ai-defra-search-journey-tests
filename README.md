@@ -7,7 +7,8 @@ The template to create a service that runs WDIO tests against an environment.
     - [Node.js](#nodejs)
     - [Java](#java)
   - [Setup](#setup)
-  - [Running local tests](#running-local-tests)
+  - [Running Journey tests](#running-journey-tests)
+  - [Running Accessibility tests](#running-accessibility-tests)
   - [Debugging local tests](#debugging-local-tests)
 - [Production](#production)
   - [Debugging tests](#debugging-tests)
@@ -86,22 +87,49 @@ cp ./docker/config/.env.ai-defra-search-agent.example ./docker/config/.env.ai-de
 
 The Docker Compose file will automatically load your local `.env.ai-defra-search-frontend` and `.env.ai-defra-search-agent` files if they exist, allowing you to override any default values without modifying the `compose.yml` file.
 
-### Running local tests
+### Running Journey tests
 
-There are two options for running the tests locally:
+There are two options for running the journey tests locally:
 
 1. Start the stack and run the test in one go by executing the run-tests-local script:
 
 ```bash
-./run-tests-local.sh
+./run-journey-tests-local.sh
 ```
 
-2. Run the tests manually by first startting the stack, then running the test command:
+2. Run the tests manually by first starting the stack, then running the test command:
 
 ```bash
 docker compose up --wait -d
 npm run test:local
 ```
+
+### Running accessibility tests
+
+There are two options for running the accessibility tests locally:
+
+1. Run accessibility tests using the dedicated script:
+
+```bash
+./run-accessibility-tests-local.sh
+```
+
+2. Run the tests manually by first starting the stack, then running the test command:
+
+```bash
+docker compose up --wait -d
+npm run test:a11y
+```
+
+#### What the accessibility tests cover
+
+The accessibility tests verify that the AI Assistant meets **WCAG 2.1 AA** compliance across three distinct page states. Each state is checked for violations covering criteria such as colour contrast, keyboard navigation, ARIA usage, and semantic structure.
+
+| Page state               | What is tested                                                                                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Homepage**             | The landing page is free from WCAG 2.1 AA violations, including sufficient colour contrast, correct heading structure, and accessible landmark regions.                                           |
+| **Chat page (`/start`)** | Once the chat interface has loaded, the page meets WCAG 2.1 AA standards — including accessible form controls, focus management, and appropriate ARIA roles on the conversation container.        |
+| **Conversation state**   | After a user submits a question and a response is rendered, the updated page content remains accessible — including dynamically injected content, live regions, and any new interactive elements. |
 
 ### Debugging local tests
 
