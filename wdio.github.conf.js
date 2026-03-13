@@ -80,7 +80,7 @@ export const config = {
     }
   },
   onComplete: function (exitCode, config, capabilities, results) {
-    const specs = results?.specs ?? []
+    const specs = [].concat(...(config.specs ?? []))
     const ranA11y = specs.some((s) => s.endsWith('.a11y.js'))
     const ranE2e = specs.some((s) => s.endsWith('.e2e.js'))
 
