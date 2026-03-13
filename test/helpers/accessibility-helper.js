@@ -17,6 +17,34 @@ export async function initialiseAccessibilityChecking() {
 export async function analyseAccessibility(suffix) {
   try {
     await wcagChecker.analyse(browser, suffix)
+
+    const kebabSuffix = suffix
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
+
+    const categoryHtml = wcagChecker.getHtmlReportByCategory()
+    const guidelineHtml = wcagChecker.getHtmlReportByGuideLine()
+
+    if (categoryHtml) {
+      fs.writeFileSync(
+        path.join(
+          reportDirectory,
+          `${kebabSuffix}-accessibility-category.html`
+        ),
+        categoryHtml
+      )
+    }
+
+    if (guidelineHtml) {
+      fs.writeFileSync(
+        path.join(
+          reportDirectory,
+          `${kebabSuffix}-accessibility-guideline.html`
+        ),
+        guidelineHtml
+      )
+    }
   } catch (error) {
     log.error(`Accessibility analysis failed for ${suffix}: ${error.message}`)
   }

@@ -1,5 +1,5 @@
-name: Run Journey Tests on GitHub
-description: Run AI Assistant journey tests
+name: Run Accessibility Tests on GitHub
+description: Run AI Assistant Accessibility tests
 
 inputs:
   ai-defra-search-agent:
@@ -32,7 +32,7 @@ runs:
         cache: npm
 
     - name: Setup the tests
-      run: npm i
+      run: npm ci
       shell: bash
 
     - name: Start docker compose
