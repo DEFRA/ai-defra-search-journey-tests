@@ -182,7 +182,5 @@ export function generateAccessibilityReportIndex() {
             </body>
         </html>
         `
-  fs.writeFileSync(path.join(reportDirectory, 'index.html'), html, (err) => {
-    if (err) throw err
-  })
+  fs.writeFileSync(path.join(reportDirectory, 'index.html'), html)
 }
