@@ -1,10 +1,14 @@
-class AiAssisstantPage {
+class AiAssistantPage {
   openHome(lang = '') {
     return browser.url(lang + '/')
   }
 
   openStart(lang = '') {
     return browser.url(lang + '/start')
+  }
+
+  openFeedback(lang = '') {
+    return browser.url(lang + '/feedback')
   }
 
   async submitQuestion(question, expectedResponse = null) {
@@ -47,6 +51,17 @@ class AiAssisstantPage {
       )
     }
   }
+
+  async selectRadioById(id) {
+    const radio = await $(`#${id}`)
+    await radio.waitForExist()
+    await browser.execute((el) => el.click(), radio)
+  }
+
+  async clickSubmit() {
+    const submitButton = await $('button[type="submit"]')
+    await submitButton.click()
+  }
 }
 
-export default new AiAssisstantPage()
+export default new AiAssistantPage()

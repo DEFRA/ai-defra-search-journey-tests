@@ -1,6 +1,6 @@
 import { browser, expect } from '@wdio/globals'
 
-import AiAssisstantPage from 'page-objects/ai-assisstant.page.js'
+import AiAssistantPage from 'page-objects/ai-assistant.page.js'
 
 describe('AI Assistant', () => {
   beforeEach(async () => {
@@ -20,7 +20,7 @@ describe('AI Assistant', () => {
   })
 
   it('Should navigate from the homepage to the chat', async () => {
-    await AiAssisstantPage.openHome()
+    await AiAssistantPage.openHome()
     const startChatLink = await $('a[href="/start"]')
     await startChatLink.click()
     const conversationContainer = await $('.app-conversation-container')
@@ -28,7 +28,7 @@ describe('AI Assistant', () => {
   })
 
   it('Should be on the "AI Assistant" page', async () => {
-    await AiAssisstantPage.openStart()
+    await AiAssistantPage.openStart()
 
     await expect(browser).toHaveTitle('AI Assistant')
 
@@ -40,8 +40,8 @@ describe('AI Assistant', () => {
   })
 
   it('Should be able to submit a question and get an answer', async () => {
-    await AiAssisstantPage.openStart()
-    await AiAssisstantPage.submitQuestion(
+    await AiAssistantPage.openStart()
+    await AiAssistantPage.submitQuestion(
       'What is UCD?',
       "It's this really cool thing called User Centred Design"
     )
@@ -55,12 +55,12 @@ describe('AI Assistant', () => {
   })
 
   it('Should be able to have a conversation with the AI Assistant', async () => {
-    await AiAssisstantPage.openStart()
-    await AiAssisstantPage.submitQuestion(
+    await AiAssistantPage.openStart()
+    await AiAssistantPage.submitQuestion(
       'What is UCD?',
       "It's this really cool thing called User Centred Design"
     )
-    await AiAssisstantPage.submitQuestion(
+    await AiAssistantPage.submitQuestion(
       'Is it good practice to adopt in software development?',
       "Absolutely, you'll produce much better software geared towards users needs"
     )

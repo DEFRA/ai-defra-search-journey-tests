@@ -1,0 +1,20 @@
+name: Run Accessibility Tests on GitHub
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+  pull-requests: write
+on:
+  workflow_dispatch:
+  workflow_call:
+jobs:
+  build:
+    name: Run Accessibility Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run Accessibility Tests
+        uses: ./run-accessibility-tests
+        with:
+          branch: ${{ github.ref_name }}

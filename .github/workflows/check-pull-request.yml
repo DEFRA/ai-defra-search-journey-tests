@@ -33,7 +33,7 @@ jobs:
       - run: npm run format:check
       - run: npm run lint
 
-  tests:
+  journey-tests:
     name: Run Journey Tests
     runs-on: ubuntu-latest
     permissions:
@@ -42,8 +42,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Run Journey Tests
         uses: ./run-journey-tests
         with:
           journey-test-pr: true
+
+  accessibility-tests:
+    name: Run Accessibility Tests
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run Accessibility Tests
+        uses: ./run-accessibility-tests
+        with:
+          journey-test-pr: true
+

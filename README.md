@@ -7,7 +7,8 @@ The template to create a service that runs WDIO tests against an environment.
     - [Node.js](#nodejs)
     - [Java](#java)
   - [Setup](#setup)
-  - [Running local tests](#running-local-tests)
+  - [Running Journey tests](#running-journey-tests)
+  - [Running Accessibility tests](#running-accessibility-tests)
   - [Debugging local tests](#debugging-local-tests)
 - [Production](#production)
   - [Debugging tests](#debugging-tests)
@@ -86,21 +87,38 @@ cp ./docker/config/.env.ai-defra-search-agent.example ./docker/config/.env.ai-de
 
 The Docker Compose file will automatically load your local `.env.ai-defra-search-frontend` and `.env.ai-defra-search-agent` files if they exist, allowing you to override any default values without modifying the `compose.yml` file.
 
-### Running local tests
+### Running Journey tests
 
-There are two options for running the tests locally:
+There are two options for running the journey tests locally:
 
 1. Start the stack and run the test in one go by executing the run-tests-local script:
 
 ```bash
-./run-tests-local.sh
+./run-journey-tests-local.sh
 ```
 
-2. Run the tests manually by first startting the stack, then running the test command:
+2. Run the tests manually by first starting the stack, then running the test command:
 
 ```bash
 docker compose up --wait -d
 npm run test:local
+```
+
+### Running accessibility tests
+
+There are two options for running the accessibility tests locally:
+
+1. Run accessibility tests using the dedicated script:
+
+```bash
+./run-accessibility-tests-local.sh
+```
+
+2. Run the tests manually by first starting the stack, then running the test command:
+
+```bash
+docker compose up --wait -d
+npm run test:a11y
 ```
 
 ### Debugging local tests

@@ -1,0 +1,64 @@
+name: Run Accessibility Tests on GitHub
+description: Run AI Assistant Accessibility tests
+
+inputs:
+  ai-defra-search-agent:
+    description: commit hash of ai-defra-search-agent
+  ai-defra-search-frontend:
+    description: commit hash of ai-defra-search-frontend
+  branch:
+    description: branch in this repo
+    default: main
+  journey-test-pr:
+    description: is this action being called from a pr in this repo?
+    default: 'false'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository if not called by Accessibility Test PR
+      if: inputs.journey-test-pr == 'false'
+      uses: actions/checkout@v4
+      with:
+        repository: DEFRA/ai-defra-search-journey-tests
+        ref: ${{inputs.branch}}
+
+    - name: Docker Login
+      uses: DEFRA/cdp-build-action/docker-login@main
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: npm
+
+    - name: Setup the tests
+      run: npm ci
+      shell: bash
+
+    - name: Start docker compose
+      shell: bash
+      run: |
+          AI_DEFRA_SEARCH_BACKEND=${{inputs.ai-defra-search-agent}} \
+          AI_DEFRA_SEARCH_FRONTEND=${{inputs.ai-defra-search-frontend}} \
+          docker compose up --wait --wait-timeout 300 -d --quiet-pull
+
+    - name: debug
+      if: always()
+      run: |
+        docker compose logs > logs.txt
+        docker ps
+      shell: bash
+
+    - name: Run the accessibility tests
+      shell: bash
+      env:
+        WIREMOCK_URL: http://localhost:8089
+      run: |
+        npm run test:a11y:github
+
+    - name: Upload accessibility report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: accessibility-report
+        path: ./accessibility-reports
