@@ -25,7 +25,6 @@ export async function analyseAccessibility(suffix) {
 export function generateAccessibilityReportIndex() {
   if (!fs.existsSync(reportDirectory)) {
     fs.mkdirSync(reportDirectory, { recursive: true })
-    return
   }
 
   const filenames = fs
