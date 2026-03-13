@@ -1,10 +1,14 @@
 import { browser } from '@wdio/globals'
 
 import AiAssisstantPage from 'page-objects/ai-assistant.page.js'
-import { analyseAccessibility } from '~/test/helpers/accessibility-checker.js'
+import {
+  analyseAccessibility,
+  initialiseAccessibilityChecking
+} from '~/test/helpers/accessibility-helper.js'
 
 describe('AI Assistant', () => {
   beforeEach(async () => {
+    await initialiseAccessibilityChecking()
     await browser.call(async () => {
       const response = await fetch(
         `${process.env.WIREMOCK_URL}/__admin/scenarios/reset`,

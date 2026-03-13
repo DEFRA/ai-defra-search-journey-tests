@@ -22,31 +22,6 @@ export async function analyseAccessibility(suffix) {
   }
 }
 
-export function generateAccessibilityReports(filePrefix) {
-  const categoryReport = wcagChecker.getHtmlReportByCategory()
-  const guidelineReport = wcagChecker.getHtmlReportByGuideLine()
-
-  if (categoryReport && categoryReport.length > 0) {
-    fs.writeFileSync(
-      path.join(reportDirectory, `${filePrefix}-accessibility-category.html`),
-      categoryReport,
-      (err) => {
-        if (err) throw err
-      }
-    )
-  }
-
-  if (guidelineReport && guidelineReport.length > 0) {
-    fs.writeFileSync(
-      path.join(reportDirectory, `${filePrefix}-accessibility-guideline.html`),
-      guidelineReport,
-      (err) => {
-        if (err) throw err
-      }
-    )
-  }
-}
-
 export function generateAccessibilityReportIndex() {
   if (!fs.existsSync(reportDirectory)) {
     fs.mkdirSync(reportDirectory, { recursive: true })
@@ -183,6 +158,4 @@ export function generateAccessibilityReportIndex() {
   fs.writeFileSync(path.join(reportDirectory, 'index.html'), html, (err) => {
     if (err) throw err
   })
-
-  // Reports will be copied to Allure directory after Allure report generation
 }

@@ -16,7 +16,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout repository if not called by Journey Test PR
+    - name: Checkout repository if not called by Accessibility Test PR
       if: inputs.journey-test-pr == 'false'
       uses: actions/checkout@v4
       with:

@@ -1,5 +1,5 @@
 import allure from 'allure-commandline'
-import { generateAccessibilityReportIndex } from './test/helpers/accessibility-checker.js'
+import { generateAccessibilityReportIndex } from './test/helpers/accessibility-helper.js'
 
 const oneMinute = 60 * 1000
 
