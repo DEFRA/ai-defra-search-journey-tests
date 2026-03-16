@@ -4,5 +4,5 @@ set -x
 docker rm -f $(docker ps -aq)
 docker compose up --wait -d
 
-export WIREMOCK_URL=http://localhost:8089
+export AWS_ENDPOINT_URL_BEDROCK_RUNTIME=http://localhost:8089
 npm run test:a11y

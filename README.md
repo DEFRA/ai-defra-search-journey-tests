@@ -8,7 +8,8 @@ The template to create a service that runs WDIO tests against an environment.
     - [Java](#java)
   - [Setup](#setup)
   - [Running Journey tests](#running-journey-tests)
-  - [Running Accessibility tests](#running-accessibility-tests)
+  - [Running Accessibility tests against_local_stack](#running-accessibility-tests-against-local-stack)
+  - [Running Accessibility tests against_CDP](#running-accessibility-tests-against-cdp)
   - [Debugging local tests](#debugging-local-tests)
 - [Production](#production)
   - [Debugging tests](#debugging-tests)
@@ -104,7 +105,7 @@ docker compose up --wait -d
 npm run test:local
 ```
 
-### Running accessibility tests
+### Running accessibility tests against local stack
 
 There are two options for running the accessibility tests locally:
 
@@ -119,6 +120,14 @@ There are two options for running the accessibility tests locally:
 ```bash
 docker compose up --wait -d
 npm run test:a11y
+```
+
+### Running accessibility tests against CDP
+
+The accessibility tests can be run against the CDP environment by executing this script:
+
+```bash
+./run-accessibility-tests-cdp.sh
 ```
 
 ### Debugging local tests
