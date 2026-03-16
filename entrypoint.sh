@@ -3,6 +3,8 @@
 echo "run_id: $RUN_ID"
 npm test
 
+npm run test:a11y:cdp
+
 npm run report:publish
 publish_exit_code=$?
 
