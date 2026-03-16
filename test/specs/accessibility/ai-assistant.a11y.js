@@ -11,7 +11,7 @@ describe('AI Assistant', () => {
     await initialiseAccessibilityChecking()
     await browser.call(async () => {
       const response = await fetch(
-        `${process.env.WIREMOCK_URL}/__admin/scenarios/reset`,
+        `${process.env.AWS_ENDPOINT_URL_BEDROCK_RUNTIME}/__admin/scenarios/reset`,
         {
           method: 'POST'
         }
