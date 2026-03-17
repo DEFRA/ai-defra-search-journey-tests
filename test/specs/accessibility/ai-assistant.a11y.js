@@ -6,22 +6,23 @@ import {
   initialiseAccessibilityChecking
 } from '~/test/helpers/accessibility-helper.js'
 
+const wireMockUrl = process.env.AWS_ENDPOINT_URL_BEDROCK_RUNTIME
+
 describe('AI Assistant', () => {
   beforeEach(async () => {
     await initialiseAccessibilityChecking()
-    await browser.call(async () => {
-      const response = await fetch(
-        `${process.env.AWS_ENDPOINT_URL_BEDROCK_RUNTIME}/__admin/scenarios/reset`,
-        {
+    if (wireMockUrl) {
+      await browser.call(async () => {
+        const response = await fetch(`${wireMockUrl}/__admin/scenarios/reset`, {
           method: 'POST'
+        })
+        if (!response.ok) {
+          throw new Error(
+            `Failed to reset WireMock scenarios: ${response.statusText}`
+          )
         }
-      )
-      if (!response.ok) {
-        throw new Error(
-          `Failed to reset WireMock scenarios: ${response.statusText}`
-        )
-      }
-    })
+      })
+    }
   })
 
   it('AI Assistant Home Page', async () => {
@@ -33,7 +34,9 @@ describe('AI Assistant', () => {
     await AiAssistantPage.openStart()
     await AiAssistantPage.submitQuestion(
       'What is UCD?',
-      "It's this really cool thing called User Centred Design"
+      wireMockUrl
+        ? "It's this really cool thing called User Centred Design"
+        : null
     )
 
     await analyseAccessibility('AI Assistant Chat Page')
