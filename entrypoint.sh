@@ -1,7 +1,8 @@
 #!/bin/sh
 
 echo "run_id: $RUN_ID"
-echo "AWS_ENDPOINT_URL_BEDROCK_RUNTIME: $AWS_ENDPOINT_URL_BEDROCK_RUNTIME"
+AWS_ENDPOINT_URL_BEDROCK_RUNTIME=${AWS_ENDPOINT_URL_BEDROCK_RUNTIME:-https://ai-defra-search-aws-bedrock-stub.perf-test.cdp-int.defra.cloud}
+export AWS_ENDPOINT_URL_BEDROCK_RUNTIME
 npm test
 
 npm run test:a11y:cdp
