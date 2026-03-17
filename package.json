@@ -23,7 +23,7 @@
     "test:a11y:github": "npm run clean && wdio run wdio.github.conf.js --spec ./test/specs/accessibility/ai-assistant.a11y.js",
     "test:github:browserstack": "npm run clean && wdio run wdio.github.browserstack.conf.js",
     "test:a11y": "npm run clean && wdio run wdio.local.conf.js --spec ./test/specs/accessibility/ai-assistant.a11y.js",
-    "test:a11y:cdp": "npm run clean && wdio run wdio.real-env.a11y.conf.js",
+    "test:a11y:cdp": "wdio run wdio.conf.js --spec ./test/specs/accessibility/ai-assistant.a11y.js",
     "format": "prettier --write 'test/**/*.js' '**/*.{js,md,json,config.js}'",
     "format:check": "prettier --check 'test/**/*.js' '**/*.{js,md,json,config.js}'",
     "git:pre-commit-hook": "npm run format:check && npm run lint",

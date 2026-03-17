@@ -1,7 +1,10 @@
 #!/bin/sh
 
 echo "run_id: $RUN_ID"
+echo "AWS_ENDPOINT_URL_BEDROCK_RUNTIME: $AWS_ENDPOINT_URL_BEDROCK_RUNTIME"
 npm test
+
+npm run test:a11y:cdp
 
 npm run report:publish
 publish_exit_code=$?
