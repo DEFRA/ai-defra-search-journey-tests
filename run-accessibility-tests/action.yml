@@ -18,7 +18,7 @@ runs:
   steps:
     - name: Checkout repository if not called by Accessibility Test PR
       if: inputs.journey-test-pr == 'false'
-      uses: actions/checkout@v4
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       with:
         repository: DEFRA/ai-defra-search-journey-tests
         ref: ${{inputs.branch}}
@@ -26,7 +26,7 @@ runs:
     - name: Docker Login
       uses: DEFRA/cdp-build-action/docker-login@main
 
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
       with:
         node-version: 20
         cache: npm
