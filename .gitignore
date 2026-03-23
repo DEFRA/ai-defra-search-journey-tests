@@ -13,3 +13,4 @@ allure-results/
 FAILED
 .env.ai-defra-search-frontend
 .env.ai-defra-search-agent
+accessibility-reports/**

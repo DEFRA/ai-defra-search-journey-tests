@@ -5,22 +5,15 @@ import {
   analyseAccessibility,
   initialiseAccessibilityChecking
 } from '~/test/helpers/accessibility-helper.js'
-
-const wireMockUrl = process.env.AWS_ENDPOINT_URL_BEDROCK_RUNTIME
+import { resetWireMockState } from '~/test/helpers/wiremock-reset.js'
 
 describe('AI Assistant', () => {
   beforeEach(async () => {
     await initialiseAccessibilityChecking()
-    if (wireMockUrl) {
+    const base = process.env.AWS_ENDPOINT_URL_BEDROCK_RUNTIME
+    if (base) {
       await browser.call(async () => {
-        const response = await fetch(`${wireMockUrl}/__admin/scenarios/reset`, {
-          method: 'POST'
-        })
-        if (!response.ok) {
-          throw new Error(
-            `Failed to reset WireMock scenarios: ${response.statusText}`
-          )
-        }
+        await resetWireMockState(base)
       })
     }
   })
@@ -34,7 +27,7 @@ describe('AI Assistant', () => {
     await AiAssistantPage.openStart()
     await AiAssistantPage.submitQuestion(
       'What is UCD?',
-      wireMockUrl
+      process.env.AWS_ENDPOINT_URL_BEDROCK_RUNTIME
         ? "It's this really cool thing called User Centred Design"
         : null
     )
