@@ -1,21 +1,12 @@
 import { browser, expect } from '@wdio/globals'
 
 import AiAssistantPage from 'page-objects/ai-assistant.page.js'
+import { resetWireMockState } from '~/test/helpers/wiremock-reset.js'
 
 describe('AI Assistant', () => {
   beforeEach(async () => {
     await browser.call(async () => {
-      const response = await fetch(
-        `${process.env.AWS_ENDPOINT_URL_BEDROCK_RUNTIME}/__admin/scenarios/reset`,
-        {
-          method: 'POST'
-        }
-      )
-      if (!response.ok) {
-        throw new Error(
-          `Failed to reset WireMock scenarios: ${response.statusText}`
-        )
-      }
+      await resetWireMockState(process.env.AWS_ENDPOINT_URL_BEDROCK_RUNTIME)
     })
   })
 

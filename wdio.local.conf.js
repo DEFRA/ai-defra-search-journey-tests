@@ -12,6 +12,11 @@ if (debug) {
 
 export const config = {
   runner: 'local',
+  // Local runs: use 127.0.0.1 so the test process hits Docker-published :8089 on IPv4.
+  // "localhost" can resolve to ::1 (Docker Desktop) while the port is bound on IPv4 only.
+  onPrepare: function () {
+    process.env.AWS_ENDPOINT_URL_BEDROCK_RUNTIME ??= 'http://127.0.0.1:8089'
+  },
   specs: ['./test/specs/**/*.e2e.js'],
   exclude: [
     // 'path/to/excluded/files'
