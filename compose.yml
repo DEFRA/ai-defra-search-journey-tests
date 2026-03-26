@@ -109,6 +109,7 @@ services:
       - CDP_UPLOADER_URL=${CDP_UPLOADER_URL:-http://cdp-uploader:7337}
       - CDP_UPLOAD_CALLBACK_URL=${CDP_UPLOAD_CALLBACK_URL:-http://ai-defra-search-frontend:3000/upload/callback}
       - UPLOAD_BUCKET_NAME=${UPLOAD_BUCKET_NAME:-my-bucket}
+      - AI_DEFRA_SEARCH_AGENT_API_KEY=${AI_DEFRA_SEARCH_AGENT_API_KEY:-local-dev-api-key}
     depends_on:
       ai-defra-search-agent:
         condition: service_started
