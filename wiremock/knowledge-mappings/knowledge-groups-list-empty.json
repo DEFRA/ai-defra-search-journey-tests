@@ -1,0 +1,15 @@
+{
+  "scenarioName": "knowledge-groups",
+  "requiredScenarioState": "Started",
+  "request": {
+    "method": "GET",
+    "url": "/knowledge-groups"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": []
+  }
+}

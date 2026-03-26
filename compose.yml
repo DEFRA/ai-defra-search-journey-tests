@@ -44,6 +44,21 @@ services:
       retries: 3
 
 ################################################################################
+
+  knowledge-stub:
+    image: wiremock/wiremock:3.5.4
+    command:
+      - --port=8090
+      - --verbose
+    volumes:
+      - ./wiremock/knowledge-mappings:/home/wiremock/mappings
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/__admin/health"]
+      interval: 5s
+      start_period: 5s
+      retries: 3
+
+################################################################################
   mongodb:
     image: mongo:6
     volumes:
@@ -125,10 +140,13 @@ services:
       - CDP_UPLOAD_CALLBACK_URL=http://ai-defra-search-frontend:3000/upload/callback
       - UPLOAD_BUCKET_NAME=${UPLOAD_BUCKET_NAME:-my-bucket}
       - AI_DEFRA_SEARCH_AGENT_API_KEY=${AI_DEFRA_SEARCH_AGENT_API_KEY:-local-dev-api-key}
+      - KNOWLEDGE_API_URL=http://knowledge-stub:8090
     depends_on:
       ai-defra-search-agent:
         condition: service_started
       redis:
+        condition: service_healthy
+      knowledge-stub:
         condition: service_healthy
     ports:
       - 3000:3000
