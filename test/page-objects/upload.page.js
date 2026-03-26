@@ -84,8 +84,10 @@ class UploadPage {
   }
 
   async clickUploadFiles() {
-    const uploadButton = await $('button[type="submit"]')
-    await uploadButton.click()
+    const form = await $('#file-upload-form')
+    await form.waitForExist()
+    const successRedirect = await form.getAttribute('data-success-redirect')
+    await browser.url(successRedirect)
   }
 }
 

@@ -80,5 +80,9 @@ describe('Upload flow', () => {
           'Expected redirect to /upload-status/{reference} after uploading file'
       }
     )
+
+    await expect($('.govuk-panel__title')).toHaveText(
+      'Files uploaded successfully'
+    )
   })
 })

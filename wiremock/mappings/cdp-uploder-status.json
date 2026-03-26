@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/status/.*"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "uploadStatus": "complete",
+      "form": {
+        "file": [
+          {
+            "filename": "test-document.jsonl",
+            "fileStatus": "complete"
+          }
+        ]
+      }
+    }
+  }
+}

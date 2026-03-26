@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/initiate"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "uploadId": "mock-upload-id",
+      "statusUrl": "http://cdp-uploader-stub:8080/status/mock-upload-id"
+    }
+  }
+}
