@@ -80,7 +80,8 @@ class UploadPage {
   async selectFile(absoluteFilePath) {
     const fileInput = await $('#file-upload')
     await fileInput.waitForExist()
-    await fileInput.setValue(absoluteFilePath)
+    const remotePath = await browser.uploadFile(absoluteFilePath)
+    await fileInput.setValue(remotePath)
   }
 
   async clickUploadFiles() {
