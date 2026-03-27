@@ -5,10 +5,7 @@ import path from 'node:path'
 import UploadPage from 'page-objects/upload.page.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const FIXTURE_PATH = path.resolve(
-  __dirname,
-  '../../fixtures/test-document.jsonl'
-)
+const FIXTURE_PATH = path.resolve(__dirname, '../../fixtures/test-document.pdf')
 
 describe('Upload flow', () => {
   it('Should navigate from the homepage to the upload page', async () => {
