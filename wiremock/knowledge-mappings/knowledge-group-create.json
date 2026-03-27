@@ -1,7 +1,4 @@
 {
-  "scenarioName": "knowledge-groups",
-  "requiredScenarioState": "Started",
-  "newScenarioState": "group-created",
   "request": {
     "method": "POST",
     "url": "/knowledge-group"

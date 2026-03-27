@@ -2,7 +2,7 @@ import { browser, expect } from '@wdio/globals'
 
 import KnowledgePage from 'page-objects/knowledge.page.js'
 
-const groupName = `knowledgeTest-${Date.now()}`
+const groupName = 'knowledgeTest'
 
 describe('Knowledge management flow', () => {
   it('Should navigate from the homepage to the knowledge management page', async () => {
