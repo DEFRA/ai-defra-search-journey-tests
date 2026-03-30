@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/knowledge-groups"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": [
+      {
+        "id": "stub-group-id-1",
+        "name": "journey test",
+        "description": "journey test",
+        "information_asset_owner": "tester"
+      },
+      {
+        "id": "stub-group-id-2",
+        "name": "knowledgeTest",
+        "description": "",
+        "information_asset_owner": ""
+      }
+    ]
+  }
+}

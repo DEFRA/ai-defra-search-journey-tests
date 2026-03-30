@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/supported-file-types"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "extensions": ["pdf", "docx", "pptx", "jsonl"]
+    }
+  }
+}
