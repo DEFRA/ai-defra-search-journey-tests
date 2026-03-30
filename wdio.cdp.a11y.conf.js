@@ -3,7 +3,7 @@ import { generateAccessibilityReportIndex } from './test/helpers/accessibility-h
 export const config = {
   runner: 'local',
   baseUrl: process.env.BASE_URL,
-  specs: ['./test/specs/accessibility/ai-assistant.a11y.js'],
+  specs: ['./test/specs/accessibility/**/*.a11y.js'],
   exclude: [],
   maxInstances: 1,
 

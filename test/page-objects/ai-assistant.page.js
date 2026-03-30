@@ -13,6 +13,7 @@ class AiAssistantPage {
 
   async submitQuestion(question, expectedResponse = null) {
     const textarea = await $('#question')
+    await textarea.waitForExist({ timeout: 10000 })
     await textarea.setValue(question)
 
     const submitButton = await $('button[type="submit"]')
