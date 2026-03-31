@@ -39,6 +39,36 @@ class UploadPage {
     await submitButton.click()
   }
 
+  async selectFirstKnowledgeGroup() {
+    const select = await $('#knowledge-group')
+    await select.waitForExist()
+
+    await browser.waitUntil(
+      async () => {
+        const opts = await select.$$('option')
+        // Wait until there is at least one option with a non-empty value
+        for (const opt of opts) {
+          const val = await opt.getAttribute('value')
+          if (val && val.trim()) return true
+        }
+        return false
+      },
+      {
+        timeout: 10000,
+        timeoutMsg: 'No knowledge groups appeared in the upload dropdown'
+      }
+    )
+
+    await browser.execute((selectEl) => {
+      const option = Array.from(selectEl.options).find(
+        (o) => o.value && o.value.trim()
+      )
+      if (!option) throw new Error('No selectable option found in select')
+      selectEl.value = option.value
+      selectEl.dispatchEvent(new Event('change', { bubbles: true }))
+    }, select)
+  }
+
   async selectKnowledgeGroup(groupName) {
     const select = await $('#knowledge-group')
     await select.waitForExist()
